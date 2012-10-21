@@ -1,7 +1,6 @@
 package dzikka
 
 import akka.actor._
-import scala.io.Source
 import org.jsoup._
 
 trait DownloaderComponent { this: StatsGathererComponent =>
@@ -11,11 +10,10 @@ trait DownloaderComponent { this: StatsGathererComponent =>
 	class Downloader extends Actor with Logger {
 
 		def receive = {
-			case Download(url, encoding) => 
+			case Download(url) => 
 				log.info("Downloading url: " + url)
 				try {
-					val content = Source.fromURL(url, encoding).mkString
-					val doc = Jsoup.parse(content, url.toString)
+					val doc = Jsoup.connect(url.toString).get
 					statsGatherer ! Page(url, 200, Some(doc))
 				} catch {
 					case e =>
