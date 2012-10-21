@@ -13,7 +13,7 @@ trait DownloadQueueComponent { this: DownloaderComponent =>
 		def receive = {
 			case Links(links) => 
 				links.foreach { link =>
-					context.system.scheduler.scheduleOnce(kindess milliseconds, downloader, Download(link, "UTF-8"))
+					context.system.scheduler.scheduleOnce(kindess milliseconds, downloader, Download(link))
 				}
 		}
 	}

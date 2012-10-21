@@ -3,7 +3,7 @@ package dzikka
 import java.net.URL
 import org.jsoup.nodes.Document
 
-case class Download(url: URL, encoding: String)
+case class Download(url: URL)
 
 case class Page(url: URL, status: Int, document: Option[Document] = None)
 
